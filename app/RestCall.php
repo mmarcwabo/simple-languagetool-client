@@ -59,8 +59,17 @@ class RestCall
         }   
         
     }
+    /**
+     * data is an assoc array
+     */
+    public function post_data(){
 
-    public function post_data($data){
-        
+        $postData = $this->data;
+        $string = http_build_query($postData);
+        //Get json from
+        $jsonResponse = $this->rest_call($this->method, URL, $string, 'application/x-xxx-form-urlencoded');
+        $response = json_decode($jsonResponse);
+
+
     }
 }
