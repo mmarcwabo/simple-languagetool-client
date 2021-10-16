@@ -1,5 +1,7 @@
 <?php
 
+namespace application\app;
+
 class RestCall
 {
     public $method;
