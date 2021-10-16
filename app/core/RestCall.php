@@ -1,6 +1,6 @@
 <?php
 
-namespace application\app;
+namespace app\core;
 
 class RestCall
 {
