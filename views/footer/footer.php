@@ -1,8 +1,8 @@
 <?php
 ?>
-<div class="container-fluid footer">
-    <p class="pull-right">&copy; Marcellin Demo <script>
+<div class="container-fluid footer center">
+    <p class="">&copy; Wabo <script>
             document.write(new Date().getFullYear())
-        </script>. All rights reserved.</p>
+        </script></p>
 </div>
 </body>
