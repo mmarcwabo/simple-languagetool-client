@@ -19,7 +19,7 @@ spl_autoload_register(function ($class) {
         echo "File not found!";
     }
 });
-$rc = new RestCall();
+
 $v = new View();
 $v->page = "views/index.php";
 $v->render();

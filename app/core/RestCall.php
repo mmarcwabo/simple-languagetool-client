@@ -9,6 +9,9 @@ class RestCall
     public $contentType;
     private $token;
 
+    private $language;
+    private $text;
+
     //CURL
     public $curl;
 
@@ -30,27 +33,29 @@ class RestCall
          */
 
         //POST, GET
-        $rc = new RestCall();
-        switch ($rc->method) {
+       
+        switch ($this->method) {
                 //POST
             case "POST":
                 curl_setopt($curl, CURLOPT_POST, 1);
-                if($rc->data){
-                    if($rc->contentType){
+                if($this->data){
+                    if($this->contentType){
                         curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-                    'Content-Type: ' . $rc->contentType
+                    'Content-Type: ' . $this->contentType
                 ));
                     } 
-                    curl_setopt($curl, CURLOPT_POSTFIELDS, $rc->data);
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $this->data);
                 }
             break;    
             case "GET":
             //curl_setopt($curl, CURLO)
             break;
             default:
-            if($rc->data){
-
-                $url = sprintf("%s?%s", URL, http_build_query($rc->data));
+            if($this->data){
+                //To do - Don't hardcode API method names
+                //Add an array of all of them
+                //We assume we only have access on check
+                $url = sprintf("%s?%s", URL.'/check', http_build_query($this->data));
             }
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -70,8 +75,33 @@ class RestCall
         $string = http_build_query($postData);
         //Get json from
         $jsonResponse = $this->rest_call($this->method, URL, $string, 'application/x-xxx-form-urlencoded');
-        $response = json_decode($jsonResponse);
+        return $response = json_decode($jsonResponse);
 
 
+    }
+
+    public function check($language, $text) {
+        //Get submitted data on key up
+        //From an auto submited form
+        $this->language = $language;
+        $this->text =  $text;
+        $this->method = 'POST';
+
+        $data = [
+            'language' => $this->language,
+            'text' => $this->text
+        ];
+
+        //$this->language = $_POST['language'];
+        //$this->data = htmlspecialchars($_POST['text']);
+
+        $ch = curl_init(URL.http_build_query($data));
+        //set url
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($ch);      
+        curl_close($ch);
+        echo $output;
     }
 }
