@@ -1,7 +1,6 @@
 <?php
 require_once "config/config.php";
 
-use app\core\RestCall;
 use app\libs\View;
 
 require 'vendor/autoload.php';
