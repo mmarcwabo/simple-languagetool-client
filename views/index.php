@@ -27,6 +27,8 @@
     use app\core\RestResponse;
     //Get data sent by post
     $text = isset($_POST['text']) ? htmlspecialchars($_POST['text']) : '';
+    echo "eo";
+    echo $text;
     //Set language to french by default
     $language = isset($_POST['language']) ? htmlspecialchars($_POST['language']) : 'fr';
     //Rest call here
@@ -42,7 +44,14 @@
     <div class="col-lg-3 col-md-3">
     <h4>Text sent for check</h4>
         <pre><b><p style="color:blue;">
-        <?=$text?>
+        <?php
+        if($text){
+           echo $text;
+        }else{
+            echo 'No text to check';
+        }
+        
+        ?>
         </p></b></pre>
     </div>  
     <div class="col-lg-3 col-md-3" >
