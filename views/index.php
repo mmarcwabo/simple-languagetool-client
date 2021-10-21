@@ -1,6 +1,21 @@
 <?php
 //To do - Use a form creator class
 //
+echo "<p style='color:#fff;'>";
+var_dump($_POST);
+echo "</p>";
+use app\core\RestCall;
+use app\core\RestResponse;
+//Get data sent by post
+$text = isset($_POST['text']) ? htmlspecialchars($_POST['text']) : '';
+//Set language to french by default
+$language = isset($_POST['language']) ? htmlspecialchars($_POST['language']) : 'fr';
+//Rest call here
+$rc = new RestCall();
+$response = $rc->check($language, $text);
+//Handle the response here
+$rr = new RestResponse();
+$rr->getResponse($response);
 ?>
 <h2 class="demo-text">Language tool web client</h2>
 <div class="container-fluid">
@@ -23,20 +38,6 @@
 
     <?php
 
-    use app\core\RestCall;
-    use app\core\RestResponse;
-    //Get data sent by post
-    $text = isset($_POST['text']) ? htmlspecialchars($_POST['text']) : '';
-    echo "eo";
-    echo $text;
-    //Set language to french by default
-    $language = isset($_POST['language']) ? htmlspecialchars($_POST['language']) : 'fr';
-    //Rest call here
-    $rc = new RestCall();
-    $response = $rc->check($language, $text);
-    //Handle the response here
-    $rr = new RestResponse();
-    $rr->getResponse($response);
     ?>
     
     <div class="row">
